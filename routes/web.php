@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\DeleteController;
+use App\Http\Controllers\PromoteController;
+use App\Models\Role;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,7 +21,10 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('dashboard')->with('users', Role::find(2)->users);
 })->middleware(['auth'])->name('dashboard');
+
+Route::post('/promote/{user_id}', [PromoteController::class, 'promote'])->name('promote')->middleware(['auth']);
+Route::post('/delete/{user_id}', [DeleteController::class, 'delete'])->name('delete')->middleware(['auth']);
 
 require __DIR__.'/auth.php';
