@@ -23,6 +23,8 @@
                 No new people
             </div>
             @else
+
+            <div class="mx-auto max-w-7xl bg-white p-6 border-b border-gray-200">
             <table>
                 <thead>
                     <td class="text-left w-52 font-bold">Name</td>
@@ -47,16 +49,36 @@
                         </form>
                     </td>
                     <td>
+                        <form method="GET" class="px-5" action="/edit/{{ $user->id }}">
+                            @csrf
+                            <button class="text-yellow-500">edit</button>
+                        </form>
+                    </td>
+                    <td>
                         <form method="POST" class="px-5" action="{{ route('delete', $user->id) }}">
                             @csrf
                             <button class="text-red-500">Delete</button>
                         </form>
                     </td>
+
                     @endif
                 </tr>
                 @endforeach
             </table>
+            </div>
             @endif
+
+            <div class="py-11">
+                <form method="POST" action="{{ route('create') }}" class="max-w-7xl mx-auto sm:px-6 lg:px-8 bg-white p-11 rounded shadow-sm">
+                    @csrf
+                    <h1 class="text-xl pb-3">Create an Account</h1>
+
+                    <input type="text" name="name" placeholder="Name">
+                    <input type="email" name="email" placeholder="E-mail">
+                    <input type="password" name="password" placeholder="password">
+                    <button>Create</button>
+                </form>
+            </div>
         </div>
     </div>
     @endif

@@ -2,7 +2,10 @@
 
 use App\Http\Controllers\DeleteController;
 use App\Http\Controllers\PromoteController;
+use App\Http\Controllers\UserController;
 use App\Models\Role;
+use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,7 +27,17 @@ Route::get('/dashboard', function () {
     return view('dashboard')->with('users', Role::find(2)->users);
 })->middleware(['auth'])->name('dashboard');
 
-Route::post('/promote/{user_id}', [PromoteController::class, 'promote'])->name('promote')->middleware(['auth']);
-Route::post('/delete/{user_id}', [DeleteController::class, 'delete'])->name('delete')->middleware(['auth']);
+Route::post('/promote/{user_id}', [UserController::class, 'promote'])->name('promote')->middleware(['auth']);
+
+Route::delete('/delete/{user_id}', [UserController::class, 'delete'])->name('delete')->middleware(['auth']);
+
+Route::post('/create', [UserController::class, 'create'])->name('create')->middleware(['auth']);
+
+Route::put('/edit/{user_id}', [UserController::class, 'edit'])->name('edit')->middleware(['auth']);
+
+Route::get('/edit/{user_id}', function (Request $request, $user_id){
+    // dd($request);
+    return view('edit')->with('user', User::find($user_id));
+})->middleware(['auth']);
 
 require __DIR__.'/auth.php';
