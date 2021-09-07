@@ -36,7 +36,7 @@ use App\Models\Role;
                         <label for="role_id">Role</label>
                         <select name="role_id" id="role_id">
                             @foreach(Role::all() as $role)
-                            <option value="{{ $role->id }}">{{ $role->name }}</option>
+                            <option value="{{ $role->id }}" @if($role->id == $user->role->id) selected @endif>{{ $role->name }}</option>
                             @endforeach
                         </select>
                     </div>
