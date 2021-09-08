@@ -15,7 +15,7 @@ class UserController extends Controller
         
         $user->delete();
 
-        return redirect('dashboard');
+        return redirect('admin');
     }
 
     public function promote($user_id){
@@ -23,7 +23,15 @@ class UserController extends Controller
         $user->role_id = Role::ADMIN;
         $user->save();
 
-        return redirect('dashboard');
+        return redirect('admin');
+    }
+
+    public function demote($user_id){
+        $user = User::find($user_id);
+        $user->role_id = Role::USER;
+        $user->save();
+
+        return redirect('admin');
     }
 
     public function create(Request $request){
@@ -45,7 +53,7 @@ class UserController extends Controller
             ]
         );
     }
-        return back();
+        return redirect('admin');
     }
 
     public function edit(Request $request, $user_id){
@@ -63,6 +71,6 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect('dashboard');
+        return redirect('admin');
     }
 }
