@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -22,6 +23,12 @@ class UserController extends Controller
         $user = User::find($user_id);
         $user->role_id = Role::ADMIN;
         $user->save();
+
+        Article::create([
+            'title' => 'Congratz ' . $user->name,
+            'content' => $user->name . ' has been promoted to ' . $user->role->name,
+            'user_id' => Auth::user()->id,
+        ]);
 
         return redirect('admin');
     }

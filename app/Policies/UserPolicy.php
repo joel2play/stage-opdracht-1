@@ -25,4 +25,8 @@ class UserPolicy
     public function deleteUser(User $auth_user, $user){
         return $auth_user->role_id == Role::ADMIN && $user->id != 1;
     }
+
+    public function editProfile($auth_user, $user){
+        return $auth_user->id == $user->id;
+    }
 }

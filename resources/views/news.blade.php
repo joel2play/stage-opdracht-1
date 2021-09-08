@@ -1,14 +1,14 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
+            {{ __('News') }}
         </h2>
     </x-slot>
 
-    <x-section>
+    <div class="w-9/12 mx-auto flex flex-wrap">
 
         @foreach ($articles as $article)
-            <div class=" border-b-4 mb-6">
+            <div class="lg:w-5/12 border-b-4 mb-6 p-5 bg-white rounded m-5">
 
                 <div class="flex justify-between">
                     <span>
@@ -29,11 +29,11 @@
                 </p>
                 
                 <div>
-                    <img src="{{ $article->img }}" class="h-52">
+                    <img src="{{ $article->img }}" class="w-full">
                 </div>
                 
                 <p>
-                    written by {{ $article->user->name }}
+                    written by <a class="text-blue-500 underline" href="{{ route('profile.watch', $article->user->id) }}">{{ $article->user->name }}</a>
                 </p>
                 
                 @can ('seeDelete', App\Models\Article::class)
@@ -51,7 +51,7 @@
             
         @endforeach
             
-    </x-section>
+</div>
         
     
 </x-app-layout>

@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 class ArticleController extends Controller
 {
     public function show(){
-        return view('news')->with('articles', Article::all());
+        return view('news')->with('articles', Article::all()->sortByDesc('created_at'));
     }
 
     public function create(Request $request){
