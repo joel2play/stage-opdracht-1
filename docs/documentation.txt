@@ -1,0 +1,49 @@
+ Requirements:
+
+- users:
+    name
+    profile_picture
+    role
+    password
+
+-articles:
+    intro
+    title
+    content
+    image
+    author
+    created at
+
+
+Database:
+    users:
+        id, int, AI, primary key
+        name, string
+        email, string, unique
+        password, string
+        profile_picture, string, nullable
+        role_id, int, foreign key
+
+    articles:
+        id, int, AI, primary
+        title, string
+        intro, string, nullable
+        img, string, nullable
+        content, string
+        user_id, int, foreign key
+
+    roles:
+        id, int, AI, primary
+        name, string
+
+
+pages:
+    admin
+     page for admins to see, edit, delete and promote all users
+
+    news
+     page to see all articles 
+     as admin you can delete and edit an article 
+
+    profile
+     page for users to see and edit their own profile

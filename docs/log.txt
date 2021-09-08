@@ -1,0 +1,19 @@
+6-9-2021:
+
+laravel project aangemaakt
+login system erin gezet
+verschillende rollen toegevoegd
+promote is toegevoegd
+delete toegevoegd
+create via admin panel toegevoegd
+
+
+7-9-2021:
+
+planning maken voor de dag
+editten van users toegevoegd
+
+
+8-9-2021:
+
+profiles added
