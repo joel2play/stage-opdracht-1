@@ -32,5 +32,11 @@
                 {{ $slot }}
             </main>
         </div>
+        <script src="//cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+        <script type="text/javascript">
+        $(document).ready(function () {
+            $('.ckeditor').ckeditor();
+        });
+        </script>
     </body>
 </html>

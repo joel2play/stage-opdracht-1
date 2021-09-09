@@ -143,7 +143,7 @@
                             Intro
                         </p>
                         
-                        <textarea class="w-full h-52 resize-none rounded" name="intro"></textarea>
+                        <textarea class="ckeditor w-full h-52 resize-none rounded" name="intro"></textarea>
                     </div>
 
                     <div>
@@ -159,7 +159,7 @@
                             Content
                         </p>
                         
-                        <textarea class="w-full h-52 resize-none rounded" name="content"></textarea>
+                        <textarea class="ckeditor w-full h-52 resize-none rounded" name="content"></textarea>
                     </div>
 
                     <div>

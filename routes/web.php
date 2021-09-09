@@ -66,6 +66,14 @@ Route::delete('/news/delete/{article_id}', [ArticleController::class, 'delete'])
     ->name('article.delete')
     ->middleware(['auth', 'isAdmin']);
 
+Route::get('/news/edit/{article_id}', [ArticleController::class, 'edit'])
+    ->name('article.edit')
+    ->middleware(['auth', 'isAdmin']);
+
+Route::put('/news/save/{article_id}', [ArticleController::class, 'save'])
+    ->name('article.save')
+    ->middleware(['auth', 'isAdmin']);
+
 Route::get('/profile', [ProfileController::class, 'show'])
     ->name('profile.show')
     ->middleware(['auth']);

@@ -18,7 +18,11 @@ class UserPolicy
         return $auth_user->role_id == Role::ADMIN && $user->role_id != Role::USER && $user->id != 1;
     }
 
-    public function seeDelete(User $user){
+    public function delete(User $user){
+        return $user->role_id == Role::ADMIN;
+    }
+
+    public function edit(User $user){
         return $user->role_id == Role::ADMIN;
     }
 

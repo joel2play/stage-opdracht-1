@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 class ArticleController extends Controller
 {
     public function show(){
-        return view('news')->with('articles', Article::all()->sortByDesc('created_at'));
+        return view('news.show')->with('articles', Article::all()->sortByDesc('created_at'));
     }
 
     public function create(Request $request){
@@ -39,9 +39,40 @@ class ArticleController extends Controller
         return redirect('/news');
     }
 
-    public function delete($article){
+    public function edit($article_id){
+        return view('news.edit')->with('article', Article::find($article_id));
+    }
 
-        $article = Article::find($article);
+    public function save(Request $request, $article_id){
+        $request->validate([
+            'title' => 'required',
+            'content' => 'required',
+            'img' => 'image'
+        ]);
+
+        $article = Article::find($article_id);
+
+        $article->title = $request->input('title');
+        $article->intro = $request->input('intro');
+        $article->content = $request->input('content');
+
+        if ($request->img){
+            $article->img = $request->img->store('images/artciles');
+            Storage::delete($article->img);
+        } elseif (!$request->has('keep_image')) {
+            $article->img = null;
+            Storage::delete($article->img);
+        }
+
+        $article->save();
+
+        return redirect('/news');
+
+    }
+
+    public function delete($article_id){
+
+        $article = Article::find($article_id);
 
         if ($article->img != null)
                 Storage::delete($article->img);
