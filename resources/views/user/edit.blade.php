@@ -1,10 +1,7 @@
-@php
-use App\Models\Role;
-@endphp
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Edit') }}
+            {{ __('Edit user') }}
         </h2>
     </x-slot>
 
@@ -37,7 +34,7 @@ use App\Models\Role;
             <div class="py-5">
                 <label for="role_id">Role</label>
                 <select name="role_id" id="role_id">
-                    @foreach(Role::all() as $role)
+                    @foreach(App\Models\Role::all() as $role)
                     <option value="{{ $role->id }}">{{ $role->name }}</option>
                     @endforeach
                 </select>

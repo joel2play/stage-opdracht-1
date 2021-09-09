@@ -14,6 +14,8 @@ class Article extends Model
         'title',
         'content',
         'user_id',
+        'start_date',
+        'end_date',
     ];
 
     public function user(){

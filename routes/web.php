@@ -20,43 +20,44 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', function () { return view('welcome'); });
 
-Route::get('/admin', function () {
-    return view('admin')->with('users', User::all());
-})
-    ->name('admin')
+Route::get('/admin', function () { return view('user.show')->with('users', User::all()); })
+    ->name('user.show')
     ->middleware(['auth', 'isAdmin']);
 
-Route::post('/promote/{user_id}', [UserController::class, 'promote'])
-    ->name('promote')
-    ->middleware(['auth', 'isAdmin']);
-
-Route::post('/demote/{user_id}', [UserController::class, 'demote'])
-    ->name('demote')
-    ->middleware(['auth', 'isAdmin']);
-
-Route::delete('/delete/{user_id}', [UserController::class, 'delete'])
-    ->name('delete')
-    ->middleware(['auth', 'isAdmin']);
-
-Route::post('/create', [UserController::class, 'create'])
+Route::get('/user/create', function (){ return view('user.create'); })
     ->name('user.create')
     ->middleware(['auth', 'isAdmin']);
 
-Route::put('/edit/{user_id}', [UserController::class, 'edit'])
-    ->name('edit')
+Route::post('/user/promote/{user_id}', [UserController::class, 'promote'])
+    ->name('user.promote')
+    ->middleware(['auth', 'isAdmin']);
+
+Route::post('/user/demote/{user_id}', [UserController::class, 'demote'])
+    ->name('user.demote')
+    ->middleware(['auth', 'isAdmin']);
+
+Route::delete('/user/delete/{user_id}', [UserController::class, 'delete'])
+    ->name('user.delete')
+    ->middleware(['auth', 'isAdmin']);
+
+Route::post('/user/insert', [UserController::class, 'create'])
+    ->name('user.insert')
+    ->middleware(['auth', 'isAdmin']);
+
+Route::put('/user/edit/{user_id}', [UserController::class, 'edit'])
+    ->name('user.edit')
     ->middleware(['auth', 'isAdmin']);
 
 Route::get('/edit/{user_id}', function ($user_id){
     return view('edit')->with('user', User::find($user_id));
-})->name('edit.show')
+})->name('user.edit.show')
 ->middleware(['auth', 'isAdmin']);
 
 Route::get('/news', [ArticleController::class, 'show'])
-    ->name('news');
+    ->name('news')
+    ->middleware(['auth']);
 
 Route::post('/news', [ArticleController::class, 'create'])
     ->name('article.create')
@@ -68,6 +69,10 @@ Route::delete('/news/delete/{article_id}', [ArticleController::class, 'delete'])
 
 Route::get('/news/edit/{article_id}', [ArticleController::class, 'edit'])
     ->name('article.edit')
+    ->middleware(['auth', 'isAdmin']);
+
+Route::get('/admin/news', function () { return view('article.show'); })
+    ->name('articles.show')
     ->middleware(['auth', 'isAdmin']);
 
 Route::put('/news/save/{article_id}', [ArticleController::class, 'save'])

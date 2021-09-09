@@ -3,28 +3,41 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
 {
     public function show(){
-        return view('news.show')->with('articles', Article::all()->sortByDesc('created_at'));
+
+        // dd(Article::find(1)->start_date <= Date::create('2021', '1', '2') && Article::find(1)->end_date >= Date::now());
+        $articles = Article::where([
+                ['start_date', '<=', Date::now()],
+                ['end_date', '>=', Date::now()]
+            ]
+        )->get();
+
+        return view('news.show')->with('articles', $articles);
     }
 
     public function create(Request $request){
         $request->validate([
             'title' => 'required',
             'content' => 'required',
-            'img' => 'image'
+            'img' => 'image',
+            'start_date' => 'required',
+            'end_date' => 'required'
         ]);
-
         
         $article = Article::create([
             'intro' => $request->input('intro'),
             'title' => $request->input('title'),
             'content' => $request->input('content'),
+            'start_date' => Carbon::parse($request->input('start_date')),
+            'end_date' => Carbon::parse($request->input('end_date')),
             'user_id' => Auth::user()->id,
         ]);
 
@@ -57,8 +70,8 @@ class ArticleController extends Controller
         $article->content = $request->input('content');
 
         if ($request->img){
-            $article->img = $request->img->store('images/artciles');
             Storage::delete($article->img);
+            $article->img = $request->img->store('images/articles');
         } elseif (!$request->has('keep_image')) {
             $article->img = null;
             Storage::delete($article->img);

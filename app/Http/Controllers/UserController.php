@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Models\Role;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -20,6 +22,8 @@ class UserController extends Controller
     }
 
     public function promote($user_id){
+
+        // dd(Date::now());
         $user = User::find($user_id);
         $user->role_id = Role::ADMIN;
         $user->save();
@@ -28,6 +32,8 @@ class UserController extends Controller
             'title' => 'Congratz ' . $user->name,
             'content' => $user->name . ' has been promoted to ' . $user->role->name,
             'user_id' => Auth::user()->id,
+            'start_date' => Date::now(),
+            'end_date' => Date::now()->addDays(7),
         ]);
 
         return redirect('admin');

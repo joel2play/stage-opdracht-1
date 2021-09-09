@@ -68,5 +68,4 @@
             </div>
         </form> 
     </x-section>
-</script>
 </x-app-layout>

@@ -1,26 +1,25 @@
 <x-app-layout>
     <style>
         ul { 
-   list-style-type: disc; 
-   list-style-position: inside; 
-   margin-left: 15px;
-}
-ol { 
-   list-style-type: decimal; 
-   list-style-position: inside; 
-   margin-left: 15px;
-
-}
-ul ul, ol ul { 
-   list-style-type: circle; 
-   list-style-position: inside; 
-   margin-left: 15px; 
-}
-ol ol, ul ol { 
-   list-style-type: lower-latin; 
-   list-style-position: inside; 
-   margin-left: 15px; 
-}
+            list-style-type: disc; 
+            list-style-position: inside; 
+            margin-left: 15px;
+        }
+        ol { 
+            list-style-type: decimal; 
+            list-style-position: inside; 
+            margin-left: 15px;
+        }
+        ul ul, ol ul { 
+            list-style-type: circle; 
+            list-style-position: inside; 
+            margin-left: 15px; 
+        }
+        ol ol, ul ol { 
+            list-style-type: lower-latin; 
+            list-style-position: inside; 
+            margin-left: 15px; 
+        }
     </style>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -32,16 +31,11 @@ ol ol, ul ol {
 
         @foreach ($articles as $article)
             <div class="lg:w-5/12 border-b-4 mb-6 p-5 bg-white rounded m-5">
-
-                <div class="flex justify-between">
-                    <span>
-                        {!! $article->intro !!}
-                    </span>
-                    
-                    <span>
-                        {{ $article->created_at }}
-                    </span>
-                </div>    
+                
+                <p>
+                    {!! $article->intro !!}
+                </p>
+                   
 
                 <h1 class="text-lg font-bold">
                     {{ $article->title }}
@@ -56,7 +50,7 @@ ol ol, ul ol {
                 </div>
                 
                 <p>
-                    written by <a class="text-blue-500 underline" href="{{ route('profile.watch', $article->user->id) }}">{{ $article->user->name }}</a>
+                    written by <a class="text-blue-500 underline" href="{{ route('profile.watch', $article->user->id) }}">{{ $article->user->name }}</a> on {{ $article->created_at->toDateString() }}
                 </p>
 
                 <div class="flex mt-5">

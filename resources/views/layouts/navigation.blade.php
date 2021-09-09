@@ -17,7 +17,7 @@
                     </x-nav-link>
 
                     @if (Auth::user()->role_id == App\Models\Role::ADMIN)
-                    <x-nav-link :href="route('admin')" :active="request()->routeIs('admin')">
+                    <x-nav-link :href="route('user.show')" :active="request()->routeIs('user.show')">
                         {{ __('Admin') }}
                     </x-nav-link>
                     @endif
@@ -77,7 +77,7 @@
                 {{ __('News') }}
             </x-responsive-nav-link>
             @if (Auth::user()->role_id == App\Models\Role::ADMIN)
-            <x-responsive-nav-link :href="route('admin')" :active="request()->routeIs('admin')">
+            <x-responsive-nav-link :href="route('user.show')" :active="request()->routeIs('user.show')">
                 {{ __('Admin') }}
             </x-responsive-nav-link>
             @endif
