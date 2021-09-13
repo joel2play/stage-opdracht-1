@@ -7,10 +7,10 @@
 
     <x-section>
         <div class="flex justify-around">
-            @if($user->profile_picture)
-                <img class="rounded-full h-52" src="{{ asset('images/profiles/'. $user->profile_picture) }}" alt="">
+            @isset($user->profile_picture)
+                <img class="rounded-full h-52 w-52" src="{{ asset($user->profile_picture) }}" alt="">
             @else
-                <img class="rounded-full h-52" src="{{ asset('images/profiles/default.jpg'. $user->profile_picture) }}" alt="">
+                <img class="rounded-full h-52" src="{{ asset('images/profiles/default.jpg') }}" alt="">
             @endif
             
             <div class=" w-8/12 pl-6 border-l-4 flex flex-col justify-around">

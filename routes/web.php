@@ -92,14 +92,13 @@ Route::get('/profile', [ProfileController::class, 'show'])
     ->name('profile.show')
     ->middleware(['auth']);
 
-Route::get('/profile/{user_id}', [ProfileController::class, 'watch'])
-    ->name('profile.watch')
-    ->middleware(['auth']);
-
 Route::get('/profile/edit', function () {
     return view('profile.edit')->with('user', Auth::user());
-})
-    ->name('profile.edit')
+})  ->name('profile.edit')
+    ->middleware(['auth']);
+
+Route::get('/profile/{user_id}', [ProfileController::class, 'watch'])
+    ->name('profile.watch')
     ->middleware(['auth']);
 
 Route::put('/profile/save', [ProfileController::class, 'save'])

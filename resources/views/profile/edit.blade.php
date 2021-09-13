@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 <x-section>
-    <form method="POST" action="{{ route('profile.save') }}" class="p-12">
+    <form method="POST" action="{{ route('profile.save') }}" class="p-12" enctype="multipart/form-data">
         <h1 class="text-lg font-bold">
             Edit your profile
         </h1>
@@ -33,6 +33,13 @@
             </div>
             
             <input type="email" name="email" value="{{ $user->email}}">
+        </div>
+
+        <div>
+            <div class="py-5">
+                <label for="file">Profile picture</label>
+            </div>
+            <input type="file" name="profile_picture">
         </div>
         
         <div>
