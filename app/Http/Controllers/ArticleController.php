@@ -13,12 +13,11 @@ class ArticleController extends Controller
 {
     public function show(){
 
-        // dd(Article::find(1)->start_date <= Date::create('2021', '1', '2') && Article::find(1)->end_date >= Date::now());
         $articles = Article::where([
                 ['start_date', '<=', Date::now()],
                 ['end_date', '>=', Date::now()]
             ]
-        )->get();
+        )->get()->sortByDesc('created_at');
 
         return view('news.show')->with('articles', $articles);
     }

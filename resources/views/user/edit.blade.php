@@ -6,7 +6,7 @@
     </x-slot>
 
     <x-section>
-        <form method="POST" action="{{ route('edit', $user->id) }}">
+        <form method="POST" action="{{ route('user.edit', $user->id) }}">
             
             @foreach ($errors->all() as $error)
             <div class="text-red-500">

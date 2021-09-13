@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="w-7/12">
+    <div class="w-7/12 mx-auto">
         <x-section>
             <form action="{{ route('article.create') }}" enctype="multipart/form-data" method="POST">
                 @csrf

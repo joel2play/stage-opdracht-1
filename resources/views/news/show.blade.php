@@ -53,32 +53,6 @@
                     written by <a class="text-blue-500 underline" href="{{ route('profile.watch', $article->user->id) }}">{{ $article->user->name }}</a> on {{ $article->created_at->toDateString() }}
                 </p>
 
-                <div class="flex mt-5">
-                    
-                    @can('edit', App\Models\User::class)
-                    <form action="{{ route('article.edit', $article->id) }}">
-                        
-                        @method('PUT')
-                        @csrf
-                        
-                        <button class="bg-blue-500 text-white py-4 px-6 rounded mr-3">
-                            Edit
-                        </button>
-                    </form>
-                    @endcan
-                    
-                    @can ('delete', App\Models\User::class)
-                    <form method="POST" action="{{ route('article.delete', $article->id) }}">
-                        
-                        @method('DELETE')
-                        @csrf
-                        
-                        <button class="bg-red-500 text-white py-4 px-6 rounded">
-                            Delete
-                        </button>
-                    </form>
-                    @endcan
-                </div>
             </div>
             
         @endforeach

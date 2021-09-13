@@ -3,6 +3,7 @@
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Models\Article;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -50,28 +51,36 @@ Route::put('/user/edit/{user_id}', [UserController::class, 'edit'])
     ->name('user.edit')
     ->middleware(['auth', 'isAdmin']);
 
-Route::get('/edit/{user_id}', function ($user_id){
-    return view('edit')->with('user', User::find($user_id));
-})->name('user.edit.show')
-->middleware(['auth', 'isAdmin']);
+Route::get('/user/edit/{user_id}', function ($user_id){
+    return view('user.edit')->with('user', User::find($user_id));
+})  ->name('user.edit.show')
+    ->middleware(['auth', 'isAdmin']);
 
 Route::get('/news', [ArticleController::class, 'show'])
     ->name('news')
     ->middleware(['auth']);
 
-Route::post('/news', [ArticleController::class, 'create'])
-    ->name('article.create')
+Route::post('/article.save', [ArticleController::class, 'create'])
+    ->name('article.save')
     ->middleware(['auth', 'isAdmin']);
 
-Route::delete('/news/delete/{article_id}', [ArticleController::class, 'delete'])
+Route::delete('/article/delete/{article_id}', [ArticleController::class, 'delete'])
     ->name('article.delete')
     ->middleware(['auth', 'isAdmin']);
 
-Route::get('/news/edit/{article_id}', [ArticleController::class, 'edit'])
+Route::get('/article/edit/{article_id}', [ArticleController::class, 'edit'])
     ->name('article.edit')
     ->middleware(['auth', 'isAdmin']);
 
-Route::get('/admin/news', function () { return view('article.show'); })
+Route::post('/article/create', [ArticleController::class, 'create'])
+    ->name('article.create')
+    ->middleware(['auth', 'isAdmin']);
+
+Route::get('/article/create', function () { return view('news.create'); })
+    ->name('article.create')
+    ->middleware(['auth', 'isAdmin']);
+
+Route::get('/admin/articles', function () { return view('admin.news')->with('articles', Article::all()); })
     ->name('articles.show')
     ->middleware(['auth', 'isAdmin']);
 
