@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Article;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -32,5 +33,13 @@ class UserPolicy
 
     public function editProfile($auth_user, $user){
         return $auth_user->id == $user->id;
+    }
+
+    public function seeMenu($user){
+        return $user->role_id == Role::ADMIN;
+    }
+
+    public function deleteArticle(User $auth, $article){
+        return true;
     }
 }

@@ -1,37 +1,36 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Edit article') }}
-        </h2>
+        <div class="flex justify-between items-center">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                {{ __('Users') }}
+            </h2>
+            <a href="{{ route('user.create') }}" class="py-4 px-6 bg-green-500 text-white rounded">New User</a>
+        </div>
     </x-slot>
 
-    <div class="flex pt-11 w-8/12 mx-auto">
-        <div class="w-4/12">
+    <div class="flex pt-11 max-w-7xl mx-auto">
+        <div class="w-3/12">
             @include ('layouts.menu')
         </div>
+
+        <div class="w-9/12">
 
         @if ($users->isEmpty())
             <x-section>
                 No people
             </x-section>
         @else
-
-        <div>
-
-            <div class="flex justify-end max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <a href="{{ route('user.create') }}" class="py-4 px-6 bg-green-500 text-white rounded">New User</a>
-            </div>
             
             <x-section>
                     
                 <table>
                     <thead>
-                        <td class="text-left w-52 font-bold">Name</td>
-                        <td class="text-left w-52 font-bold">Email</td>
-                        <td class="text-left w-52 font-bold">Role</td>
+                        <td class="text-left w-52 font-bold px-4">Name</td>
+                        <td class="text-left w-52 font-bold px-4">Email</td>
+                        <td class="text-left w-52 font-bold px-4">Role</td>
                         <td></td>
                     </thead>
-                @foreach ($users as $user)
+                    @foreach ($users as $user)
                     <tr>
                         <td>
                             {{ $user->name }}
@@ -66,7 +65,7 @@
                         <td>
                             <form method="GET" class="px-5" action="{{ route('user.edit.show', $user->id) }}">
                                 @csrf
-                                <button class="text-blue-500">edit</button>
+                                <button class="text-blue-500">Edit</button>
                             </form>
                         </td>
                         <td>

@@ -4,9 +4,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Models\Article;
-use App\Models\Role;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -21,8 +19,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Landing page
 Route::get('/', function () { return view('welcome'); });
 
+// Admin routes
+
+// Admin User routes
 Route::get('/admin', function () { return view('user.show')->with('users', User::all()); })
     ->name('user.show')
     ->middleware(['auth', 'isAdmin']);
@@ -56,38 +58,41 @@ Route::get('/user/edit/{user_id}', function ($user_id){
 })  ->name('user.edit.show')
     ->middleware(['auth', 'isAdmin']);
 
+// News page
 Route::get('/news', [ArticleController::class, 'show'])
     ->name('news')
     ->middleware(['auth']);
 
+// Admin Article routes
 Route::post('/article.save', [ArticleController::class, 'create'])
     ->name('article.save')
     ->middleware(['auth', 'isAdmin']);
 
 Route::delete('/article/delete/{article_id}', [ArticleController::class, 'delete'])
     ->name('article.delete')
-    ->middleware(['auth', 'isAdmin']);
+    ->middleware(['auth']);
 
 Route::get('/article/edit/{article_id}', [ArticleController::class, 'edit'])
     ->name('article.edit')
-    ->middleware(['auth', 'isAdmin']);
+    ->middleware(['auth']);
 
 Route::post('/article/create', [ArticleController::class, 'create'])
     ->name('article.create')
-    ->middleware(['auth', 'isAdmin']);
+    ->middleware(['auth']);
 
 Route::get('/article/create', function () { return view('news.create'); })
     ->name('article.create')
-    ->middleware(['auth', 'isAdmin']);
+    ->middleware(['auth']);
 
 Route::get('/admin/articles', function () { return view('admin.news')->with('articles', Article::all()); })
     ->name('articles.show')
     ->middleware(['auth', 'isAdmin']);
 
-Route::put('/news/save/{article_id}', [ArticleController::class, 'save'])
+Route::put('/article/save/{article_id}', [ArticleController::class, 'save'])
     ->name('article.save')
-    ->middleware(['auth', 'isAdmin']);
+    ->middleware(['auth']);
 
+// Profile routes
 Route::get('/profile', [ProfileController::class, 'show'])
     ->name('profile.show')
     ->middleware(['auth']);

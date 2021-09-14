@@ -10,11 +10,11 @@ use Illuminate\Support\Facades\Storage;
 class ProfileController extends Controller
 {
     public function show(){
-        return view('profile.show')->with('user', Auth::user());
+        return view('profile.show')->with('user', Auth::user())->with('articles', Auth::user()->articles);
     }
 
     public function watch($user_id){
-        return view('profile.show')->with('user', User::find($user_id));
+        return view('profile.show')->with('user', User::find($user_id))->with('articles', User::find($user_id)->articles);
     }
 
     public function save(Request $request){

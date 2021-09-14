@@ -1,4 +1,4 @@
-<div class="w-full bg-white rounded p-12 mt-24">
+<div class="w-full bg-white rounded-lg p-12">
     <h1 class="text-lg font-bold mb-4">
         Menu
     </h1>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Role;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -45,19 +46,25 @@ class ArticleController extends Controller
             $article->img = $filename;
         }
 
-
         $article->save();        
 
         return redirect('/news');
     }
 
     public function edit($article_id){
-        return view('news.edit')->with('article', Article::find($article_id));
+
+        $article = Article::find($article_id);
+        if (Auth::user()->id == $article->user_id || Auth::user()->role_id == Role::ADMIN)
+            return view('news.edit')->with('article', Article::find($article_id));
+        
+        return back();
     }
 
     public function save(Request $request, $article_id){
         $request->validate([
             'title' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
             'content' => 'required',
             'img' => 'image'
         ]);
@@ -85,13 +92,14 @@ class ArticleController extends Controller
     public function delete($article_id){
 
         $article = Article::find($article_id);
+        if (Auth::user()->id == $article->user_id){
+            if ($article->img != null)
+                    Storage::delete($article->img);
 
-        if ($article->img != null)
-                Storage::delete($article->img);
+            $article->delete();
+        }
 
-        $article->delete();
-
-        return redirect(route('news'));
+        return back();
 
     }
 }

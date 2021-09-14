@@ -17,3 +17,10 @@ editten van users toegevoegd
 8-9-2021:
 
 profiles added
+
+
+13-9-2021:
+
+profile pictures edit added
+admin page design changed
+
